@@ -57,7 +57,7 @@ const GAME = {
   links: { html: "https://diurndesign.github.io/Html_game/", css: null, js: "https://diurndesign.github.io/javascript_game/" },
   next: {
     name: "Kami s’adapte (Responsive)",
-    url: "https://diurndesign.github.io/responsive-game/",
+    url: "https://diurndesign.github.io/Responsive-game/",
     title: "La suite : une page qui s’adapte à tous les écrans",
     text: "HTML pour la structure, CSS pour le style, Flexbox et Grid pour la mise en page. Dernière marche avant le JavaScript : faire en sorte que ta page soit belle **sur téléphone, sur tablette et sur ordinateur**. C’est le **responsive**, et Kami t’attend pour l’apprendre."
   },
