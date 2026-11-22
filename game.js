@@ -56,10 +56,10 @@ const GAME = {
   confetti: ["#FF8A3D", "#F03E3E", "#94D82D", "#FFD43B", "#8B5E34"],
   links: { html: "https://diurndesign.github.io/Html_game/", css: null, js: "https://diurndesign.github.io/javascript_game/" },
   next: {
-    name: "Mission Bip (JavaScript)",
-    url: "https://diurndesign.github.io/javascript_game/",
-    title: "La suite : rendre la page vivante avec le JavaScript",
-    text: "HTML pour la structure, CSS pour le style, Flexbox et Grid pour la mise en page : tu as les murs et la déco. Il manque l’électricité ! **Bip le robot** t’apprend le **JavaScript** : réagir à un clic, ajouter des éléments dans une grille, changer une classe pour changer la mise en page."
+    name: "Kami s’adapte (Responsive)",
+    url: "https://diurndesign.github.io/responsive-game/",
+    title: "La suite : une page qui s’adapte à tous les écrans",
+    text: "HTML pour la structure, CSS pour le style, Flexbox et Grid pour la mise en page. Dernière marche avant le JavaScript : faire en sorte que ta page soit belle **sur téléphone, sur tablette et sur ordinateur**. C’est le **responsive**, et Kami t’attend pour l’apprendre."
   },
   board: {
     items: ".potager > *",
@@ -93,7 +93,7 @@ const GAME = {
     ],
     before: {
       title: "Ce qu’il faut savoir avant de commencer",
-      text: "Grid est la dernière marche de la mise en page avant le JavaScript. Pour en profiter, tu dois déjà être à l’aise avec ces notions (elles sont toutes dans les jeux précédents) :",
+      text: "Grid est la dernière marche de la mise en page, avant le responsive puis le JavaScript. Pour en profiter, tu dois déjà être à l’aise avec ces notions (elles sont toutes dans les jeux précédents) :",
       items: [
         "**HTML** : une **balise**, un **élément**, l’**imbrication** : un élément **parent** contient des éléments **enfants**. Et l’attribut `class` pour nommer un élément.",
         "**Les balises de structure** : `header`, `nav`, `main`, `aside`, `footer`. On les place avec Grid dans la mission finale.",
@@ -295,7 +295,7 @@ const GAME = {
     { text: "Je sais faire une grille qui s’adapte toute seule avec `repeat(auto-fill, minmax(…))`.", mission: "auto-fill" },
     { text: "Je sais changer la grille sur téléphone avec une media query placée après la règle normale.", mission: "responsive" },
     { text: "Je sais construire la mise en page d’une page complète avec `header`, `aside`, `main` et `footer`.", mission: "finale" },
-    { text: "Je sais qu’on peut changer toute une mise en page en changeant seulement une règle CSS (ou une classe) : c’est ce que fera le JavaScript.", mission: "plan" }
+    { text: "Je sais qu’on peut changer toute une mise en page en changeant seulement une règle CSS (ou une classe) : c’est ce que fera le JavaScript, après le jeu Responsive.", mission: "plan" }
   ],
 
   levels: [
@@ -793,7 +793,7 @@ const GAME = {
     ],
     hints: ["Commence par `.potager` : `display`, `grid-template-columns`, `grid-template-rows`, puis `gap`.", "Le dessin : `grid-template-areas: \"entete entete\" \"cote contenu\" \"pied pied\";`", "Une règle par balise : `header { grid-area: entete; }`, `aside { grid-area: cote; }`, `main { grid-area: contenu; }`, `footer { grid-area: pied; }`."],
     solution: `/* L’affiche de la fête : header, aside, main, footer */\n.potager {\n  display: grid;\n  grid-template-columns: 160px 1fr;\n  grid-template-rows: 70px 1fr 60px;\n  gap: 10px;\n  grid-template-areas:\n    "entete entete"\n    "cote   contenu"\n    "pied   pied";\n}\n\nheader { grid-area: entete; }\naside  { grid-area: cote; }\nmain   { grid-area: contenu; }\nfooter { grid-area: pied; }`,
-    debrief: "Bravo, jardinier ! Tu viens d’écrire la mise en page d’un vrai site web. Le HTML dit **ce qu’il y a**, Grid dit **où ça va**. Tu sais tracer une grille explicite, régler la grille implicite, placer des éléments par lignes ou par zones, les aligner à trois niveaux, et adapter le tout à tous les écrans. Prochaine étape : le **JavaScript**, pour que la page réagisse aux clics. Le potager de Kami n’a jamais été aussi beau !"
+    debrief: "Bravo, jardinier ! Tu viens d’écrire la mise en page d’un vrai site web. Le HTML dit **ce qu’il y a**, Grid dit **où ça va**. Tu sais tracer une grille explicite, régler la grille implicite, placer des éléments par lignes ou par zones, les aligner à trois niveaux, et adapter le tout à tous les écrans. Prochaine étape : le **responsive**, pour que chaque page s’adapte à tous les écrans, puis le **JavaScript**. Le potager de Kami n’a jamais été aussi beau !"
   }
   ]
 };

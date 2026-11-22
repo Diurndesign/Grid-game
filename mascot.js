@@ -2,7 +2,7 @@
    Dans Flexbox, il rassemble ses lucioles. Dans Grid, il fait pousser son potager. */
 const MASCOT = {
   name: "Kami",
-  // style : "colors" (chaque atelier colore une partie), "fireflies" (une luciole par atelier), "plants" (une plante par atelier)
+  // style : "colors" (chaque atelier colore une partie), "fireflies" (une luciole par atelier), "plants" (une plante par atelier), "screens" (un écran par atelier)
   style: "colors",
   svg(done, mood) {
     done = done || new Set();
@@ -30,6 +30,18 @@ const MASCOT = {
         `<path class="leaf" d="M${x} 152 q-10 -14 0 -26 q10 12 0 26Z"/><circle class="radish" cx="${x}" cy="156" r="6"/>`
       ][k];
       extras = `<rect class="soil" x="2" y="150" width="180" height="16" rx="8"/>` + xs.map((x, i) => done.has(i + 1) ? `<g class="plant">${plant(i, x)}</g>` : `<circle class="seed" cx="${x}" cy="156" r="3"/>`).join("");
+    }
+    if (st === "screens") {
+      // une récompense = un écran : 1 téléphone, 2 tablette, 3 portable, 4 écran, 5 télé, 6 montre
+      const dev = [
+        `<rect x="22" y="8" width="15" height="27" rx="3"/><rect class="dk" x="27" y="30" width="5" height="2" rx="1"/>`,
+        `<rect x="42" y="6" width="24" height="32" rx="3"/><circle class="dk" cx="54" cy="34" r="1.5"/>`,
+        `<rect x="72" y="10" width="32" height="21" rx="2"/><path class="dk" d="M67 31 h42 l-3 5 h-36 Z"/>`,
+        `<rect x="112" y="4" width="38" height="25" rx="2"/><path class="dk" d="M128 29 h6 v6 h6 v3 h-18 v-3 h6 Z"/>`,
+        `<rect x="152" y="8" width="30" height="21" rx="2"/><path class="dk" d="M158 29 l-3 7 M176 29 l3 7"/>`,
+        `<rect x="4" y="16" width="12" height="13" rx="3"/><path class="dk" d="M6 16 v-5 h8 v5 M6 29 v5 h8 v-5"/>`
+      ];
+      extras = dev.map((d, i) => `<g class="dev ${done.has(i + 1) ? "got" : "ghost"}">${d}</g>`).join("");
     }
     const tall = st === "plants" ? 172 : 140;
     return `<svg class="mascot kami" viewBox="0 0 186 ${tall}" role="img" aria-label="Kami">
