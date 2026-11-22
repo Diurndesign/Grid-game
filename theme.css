@@ -1,0 +1,13 @@
+/* Le potager de Kami (Grid) : la terre et l’herbe, Kami en vert, l’action en orange carotte. */
+:root {
+  --bg: #EEF2E4;
+  --grid: rgba(27, 36, 64, 0.06);
+  --mascot: #3DCB8B;
+  --mascot-deep: #1E9E66;
+  --mascot-soft: #E1F7EC;
+  --mascot-ink: #1B2440;
+  --action: #E8590C;
+  --action-soft: #FFEADB;
+  --action-ink: #FFFFFF;
+  --board-bg: #8CC152;
+}
