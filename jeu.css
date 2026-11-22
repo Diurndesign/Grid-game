@@ -1,4 +1,4 @@
-/* Style commun des jeux HTML · CSS · Flexbox · Grid.
+/* jeu.css : style commun des jeux HTML · CSS · Flexbox · Grid.
    Les couleurs propres à chaque jeu sont dans theme.css (variables --mascot, --action…). */
 :root {
   --bg: #E8EDF5;
@@ -475,3 +475,44 @@ a.trio-item[href]:hover { border-color: var(--ink); }
 .cloud-one b { display: block; margin-bottom: 2px; }
 .cloud-banner .cloud-banner-one { margin-top: 8px; font-weight: 700; font-size: .92rem; }
 
+
+/* Bonne pratique, bilan d’atelier, lexique */
+.good { background: #E3F5EC; border: 2px solid var(--ok); border-radius: 12px; padding: 12px 14px; display: grid; gap: 4px; }
+.good .mini-label { color: var(--ok); }
+.recap { background: var(--mascot-soft); border: 2px solid var(--ink); border-radius: 14px; padding: 12px 14px; }
+.recap ul { margin: 6px 0 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.skills { font-size: .9rem; }
+.skills summary { cursor: pointer; font-weight: 700; color: var(--ink-soft); }
+.skills ul { margin: 6px 0 0; padding-left: 1.2em; display: grid; gap: 3px; }
+.skills li.got::marker { content: "✓ "; color: var(--ok); font-weight: 800; }
+.lex-layout { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.lex-side { display: grid; gap: 20px; }
+.lex-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.lex-head input { font: inherit; padding: 8px 12px; border: 2px solid var(--ink); border-radius: 999px; min-width: 220px; background: #fff; color: var(--ink); }
+.lexicon { margin: 0; display: grid; }
+.lexicon > div { padding: 10px 0; border-bottom: 1px solid var(--chip); display: grid; grid-template-columns: minmax(130px, 220px) 1fr; gap: 12px; }
+.lexicon dt { font-weight: 700; }
+.lexicon dd { margin: 0; display: grid; gap: 6px; }
+.code-block.small { font-size: 12.5px; padding: 8px 10px; }
+.lex-empty { color: var(--ink-soft); }
+.practices { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
+.practices li::marker { font-weight: 800; color: var(--ok); }
+.ready { border-width: 3px; box-shadow: 5px 5px 0 var(--ink); }
+.checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.checklist li { display: flex; justify-content: space-between; gap: 10px; align-items: center; flex-wrap: wrap; background: var(--bg); border-radius: 12px; padding: 8px 10px; }
+.checklist label { display: flex; gap: 10px; align-items: flex-start; flex: 1 1 240px; }
+.checklist input { width: 20px; height: 20px; accent-color: var(--ok); flex: none; margin-top: 2px; }
+.ready-score { font-size: 1.02rem; }
+@media (max-width: 980px) { .lex-layout { grid-template-columns: 1fr; } .lexicon > div { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Bascule ordinateur / téléphone */
+.devices .seg { padding: 3px 12px; font-size: .85rem; }
+.board, .preview .browser { transition: max-width .3s; }
+.board.phone, .preview .browser.phone { max-width: 390px; margin: 0 auto; width: 100%; }
+/* Ce qu’il faut savoir avant */
+.card.before { box-shadow: 5px 5px 0 var(--ink); }
+.card.before h2 { font-size: 1.5rem; letter-spacing: -.02em; }
+.card.before ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+
+/* Le code dans les textes peut aller à la ligne (sinon il déborde des cartes) */
+.steps code, .hint-list code, .goal code, .bubble code, .lesson p code, .pieces dd code, .trap code, .good code, .why code, .q-why code, .lexicon code, .checklist code, .lint-item code { white-space: normal; overflow-wrap: anywhere; }

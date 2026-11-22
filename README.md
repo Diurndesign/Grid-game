@@ -9,7 +9,7 @@ Kami le caméléon cultive un potager. Chaque légume doit pousser sur sa parcel
 - **En ligne** : active GitHub Pages (Settings › Pages › *Deploy from a branch*, choisis la branche du jeu et le dossier `/ (root)`). Le jeu sera disponible à l’adresse `https://diurndesign.github.io/Grid-game/`.
 - **En local** : ouvre le dossier avec l’extension Live Server de VS Code (ou n’importe quel petit serveur web). Ouvrir `index.html` en double-cliquant peut bloquer l’aperçu dans certains navigateurs.
 
-La progression est enregistrée dans le navigateur, et en ligne si l’élève crée un compte (voir « La sauvegarde en ligne »).
+La progression est enregistrée dans le navigateur de chaque joueur (localStorage).
 
 ## Comment ça marche
 
@@ -22,18 +22,26 @@ La progression est enregistrée dans le navigateur, et en ligne si l’élève c
 | Objectifs | Chaque critère réussi ou raté, avec une explication quand c’est faux |
 | Remarques | Le vérificateur CSS : accolade, deux-points ou point-virgule oubliés, propriété inconnue, valeur invalide (couleur en français, unité manquante…), sélecteur qui ne trouve rien… en français, avec la ligne surlignée dans l’éditeur |
 
+Chaque leçon explique **ce que c’est**, **à quoi ça sert**, le **piège à éviter** et la **bonne pratique** professionnelle. Les missions responsive ont une bascule **Ordinateur / Téléphone**.
+
 Étoiles : 3 sans indice, 2 avec un indice, 1 avec la solution.
 
-## Les 16 missions
+## Pour aller jusqu’au bout
+
+- **Lexique** (menu en haut) : 39 mots du vocabulaire professionnel, définis simplement, avec une recherche ; 12 bonnes pratiques ; et la checklist **« Prêt pour la suite ? »** (14 points), qui renvoie vers la mission à revoir pour chaque point.
+- **Ateliers** : chaque atelier annonce ce qu’on va apprendre et se termine par un bilan « Ce que tu sais faire maintenant ».
+- **Découvrir** : la page commence par ce qu’il faut savoir avant de commencer, et renvoie au jeu précédent si besoin.
+
+## Les 21 missions
 
 | Atelier | Récompense | Notions |
 |---|---|---|
 | 1. Tracer la grille | La carotte | display: grid, grid-template-columns, mélanger px et fr, repeat() |
-| 2. Les rangées | La tomate | grid-template-rows, gap, row-gap, column-gap, quiz |
-| 3. Placer les légumes | La salade | grid-column, grid-row, span |
-| 4. Les zones | La fleur | grid-template-areas, grid-area, redessiner les zones, la case vide |
-| 5. Aligner dans les cases | La citrouille | justify-items, align-items, place-items, justify-self, align-self, quiz |
-| 6. Le grand potager | Le radis | repeat(auto-fill, minmax()), mission finale |
+| 2. Les rangées | La tomate | grid-template-rows, gap, row-gap, column-gap, grille implicite, grid-auto-rows, quiz |
+| 3. Placer les légumes | La salade | lignes de grille, grid-column, grid-row, span, lignes négatives : 1 / -1 |
+| 4. Les zones | La fleur | grid-template-areas, grid-area, redessiner les zones, la cellule vide |
+| 5. Aligner | La citrouille | justify-items, align-items, place-items, justify-self, align-self, justify-content, align-content, quiz |
+| 6. Le grand potager | Le radis | minmax(), repeat(auto-fill, minmax()), @media : redessiner la grille, mission finale |
 
 En plus : un **Carnet** (antisèche des notions débloquées) et un **Bac à sable** pour tester librement. Dans le Carnet, l’option « Débloquer toutes les missions » permet au formateur d’ouvrir toutes les missions.
 
@@ -41,12 +49,12 @@ En plus : un **Carnet** (antisèche des notions débloquées) et un **Bac à sab
 
 ```
 index.html   la structure de la page
-style.css    le design commun aux 4 jeux
+jeu.css      le design commun aux 4 jeux
 theme.css    les couleurs de ce jeu (variables CSS dans :root)
-engine.js    le moteur commun : éditeur, aperçu, vérificateur, objectifs, carte, carnet
+engine.js    le moteur commun : éditeur, aperçu, vérificateur, objectifs, carte, carnet, lexique
 cloud.js     la sauvegarde en ligne (Firebase), reprise de Mission Bip
 mascot.js    Kami, le caméléon, en SVG
-game.js      les données du jeu : page Découvrir, ateliers et missions (tableau levels)
+game.js      les données du jeu : page Découvrir, lexique, ateliers et missions (tableau levels)
 ```
 
 Pour ajouter ou modifier une mission, édite le tableau `levels` dans `game.js`. Chaque mission contient : le texte de Kami, la leçon (quoi, pourquoi, code, morceaux, piège), les étapes, le HTML du plateau (`boardHTML`), le code de départ, les objectifs (`goals`, avec une fonction `test`), les indices et la solution (qui sert aussi à calculer les cibles du plateau).
