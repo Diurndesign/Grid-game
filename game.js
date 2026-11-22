@@ -168,7 +168,7 @@ const GAME = {
       ["**Piste**", "une colonne ou une rangée de la grille (*track* en anglais)."],
       ["**Cellule**", "une case de la grille : le croisement d’une colonne et d’une rangée."],
       ["**Ligne de grille**", "les traits qui séparent les pistes, numérotés à partir de 1. 3 colonnes = 4 lignes verticales."],
-      ["**Zone**", "un rectangle d’une ou plusieurs cellules, à qui on donne un nom avec `grid-template-areas`."]
+      ["**Zone**", "un rectangle d’une ou plusieurs cellules, auquel on donne un nom avec `grid-template-areas`."]
     ],
     traps: [
       "Écrire `display: grid` sur les enfants au lieu du parent : c’est le **conteneur de grille** qui devient une grille.",
@@ -333,7 +333,7 @@ const GAME = {
       code: `.potager {\n  display: grid;\n  grid-template-columns: 120px 1fr 2fr;\n}`,
       pieces: [["120px", "une piste fixe de 120 pixels, quelle que soit la taille de l’écran"], ["1fr", "une part de la place qui reste"], ["2fr", "deux parts : deux fois plus large que `1fr`"]],
       trap: "Croire que `2fr` veut dire « 2 pixels ». Les `fr` sont des **parts** : on additionne les parts (1 + 2 = 3), puis chaque colonne prend les siennes.",
-      good: "Préfère `fr` aux pourcentages pour partager la place : `fr` compte **après** les gouttières, alors que `33%` + un écart finit par déborder. Garde les `px` pour ce qui doit vraiment rester fixe."
+      good: "Préfère `fr` aux pourcentages pour partager la place : `fr` compte **après** les gouttières (les écarts entre les colonnes, que tu verras à l’atelier 2), alors que `33%` + un écart finit par déborder. Garde les `px` pour ce qui doit vraiment rester fixe."
     },
     boardHTML: `<div class="potager">\n  <div class="radis"></div>\n  <div class="fraise"></div>\n  <div class="courgette"></div>\n</div>`,
     steps: ["La grille de trois colonnes est déjà tracée.", "La colonne des radis doit faire exactement `120px`.", "La colonne des courgettes doit être **deux fois** plus large que celle des fraises : utilise des `fr`."],
@@ -378,7 +378,7 @@ const GAME = {
     say: "En haut, je plante les petits : radis, fraises et carottes. En bas, les gros : citrouille, courgette, salade. La rangée du haut n’a pas besoin d’être aussi haute !",
     lesson: {
       what: "`grid-template-columns` dessine les colonnes ; `grid-template-rows` dessine les **rangées** (les pistes horizontales du quadrillage). Même écriture : une valeur par rangée, de haut en bas.",
-      why: "Sans `grid-template-rows`, les rangées se partagent la hauteur à parts égales. En les dessinant, tu décides : un bandeau fin en haut, une grande zone en dessous… C’est comme ça qu’on fait l’en-tête d’un site.",
+      why: "Sans `grid-template-rows`, les rangées ont une hauteur automatique : ici, elles se partagent la hauteur du potager à parts égales. En les dessinant, tu décides : un bandeau fin en haut, une grande zone en dessous… C’est comme ça qu’on fait l’en-tête d’un site.",
       code: `.potager {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: 90px 1fr;\n}`,
       pieces: [["grid-template-rows", "le plan des rangées, de haut en bas (*row* = rangée)"], ["90px", "la première rangée : 90 pixels de haut, fixe"], ["1fr", "la deuxième rangée prend toute la hauteur qui reste"]],
       trap: "Confondre les deux mots anglais : *columns* = colonnes (côte à côte, de gauche à droite), *rows* = rangées (les unes sous les autres, de haut en bas).",
@@ -495,8 +495,8 @@ const GAME = {
     steps: ["Le tournesol va dans la **troisième colonne** : utilise `grid-column`.", "Il prend **les deux rangées** : utilise `grid-row`, de la ligne 1 à la ligne 3.", "Regarde : les autres légumes se décalent pour lui laisser la place."],
     starter: `.potager {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: 1fr 1fr;\n  gap: 10px;\n}\n\n.tournesol {\n  \n}\n`,
     goals: [
-      { label: "Le tournesol est dans la 3ᵉ colonne", test: c => { const [s, e] = lines(c, ".tournesol", "column"); return (s === "3" && (e === "auto" || e === "4")) || (s === "auto" && e === "auto" ? false : "La 3ᵉ colonne commence à la ligne 3 : grid-column: 3;"); } },
-      { label: "Il va de la ligne horizontale 1 à la ligne 3", test: c => { const [s, e] = lines(c, ".tournesol", "row"); return (s === "1" && e === "3") || (s === "1" && e === "2" ? "1 / 2 ne prend qu’une rangée : la fin est la ligne 3." : (/span/.test(s + e) ? "Ici, écris les numéros de lignes : 1 / 3." : false)); } },
+      { label: "Le tournesol est dans la 3ᵉ colonne", test: c => { const [s, e] = lines(c, ".tournesol", "column"); return ((s === "3" || s === "-2") && (e === "auto" || e === "4" || e === "-1" || e === "span 1")) || (s === "auto" && e === "auto" ? false : "La 3ᵉ colonne commence à la ligne 3 : grid-column: 3;"); } },
+      { label: "Il va de la ligne horizontale 1 à la ligne 3", test: c => { const [s, e] = lines(c, ".tournesol", "row"); return (s === "1" && (e === "3" || e === "-1")) || (s === "1" && e === "2" ? "1 / 2 ne prend qu’une rangée : la fin est la ligne 3." : (/span/.test(s + e) ? "Ici, écris les numéros de lignes : 1 / 3." : false)); } },
       { label: "Les légumes sont sur leurs parcelles", test: boardOK }
     ],
     hints: ["Deux déclarations dans la règle `.tournesol` : une pour la colonne, une pour les rangées.", "Pour la colonne : `grid-column: 3;`", "Pour la hauteur : `grid-row: 1 / 3;`"],
@@ -559,7 +559,7 @@ const GAME = {
       what: ["`grid-template-areas` permet de **dessiner** la grille avec des mots. Chaque texte entre guillemets est une rangée, chaque mot est une cellule. Quand un nom est répété sur des cellules voisines, il forme une **zone** : un rectangle de plusieurs cellules qui porte ce nom.", "Ensuite, sur chaque élément de grille, `grid-area` dit dans quelle zone il va."],
       why: "C’est la façon la plus lisible de faire une mise en page : en lisant le CSS, on **voit** la page. Et pour changer la mise en page, on change le dessin, sans toucher au HTML.",
       code: `.potager {\n  grid-template-areas:\n    "fleurs feuilles feuilles"\n    "fleurs racines  fruits";\n}\n.tournesol {\n  grid-area: fleurs;\n}`,
-      pieces: [['"fleurs feuilles feuilles"', "la première rangée : 3 cellules. `feuilles` est écrit 2 fois : la zone prend 2 cellules"], ['"fleurs racines fruits"', "la deuxième rangée. `fleurs` est encore là : la zone des fleurs prend 2 rangées"], ["grid-area: fleurs", "sur l’élément de grille : « va dans la zone qui s’appelle fleurs »"], ["les noms", "c’est toi qui les inventes : sans accents, sans espaces, sans guillemets dans `grid-area`"]],
+      pieces: [['"fleurs feuilles feuilles"', "la première rangée : 3 cellules. `feuilles` est écrit 2 fois : la zone prend 2 cellules"], ['"fleurs racines fruits"', "la deuxième rangée. `fleurs` est encore là : la zone des fleurs prend 2 rangées"], ["grid-area: fleurs", "sur l’élément de grille : « va dans la zone qui s’appelle fleurs »"], ["les noms", "c’est toi qui les inventes : sans espaces, sans guillemets dans `grid-area`, et de préférence sans accents"]],
       trap: "Mettre des guillemets dans `grid-area` : `grid-area: \"fleurs\";` ne marche pas. Les guillemets, c’est seulement dans le dessin, `grid-template-areas`.",
       good: "Nomme tes zones selon leur **rôle** (`entete`, `menu`, `contenu`, `pied`), pas selon leur place ou leur couleur (`haut`, `gauche`, `bleu`) : si la mise en page change, le nom reste vrai."
     },
@@ -642,7 +642,7 @@ const GAME = {
     goals: [
       { label: "Le tournesol est en haut de sa cellule (`align-self`)", test: c => /start/.test(cs(c, ".tournesol", "align-self")) || (/start|end/.test(cs(c, ".tournesol", "justify-self")) ? "justify-self est horizontal : pour monter, c’est align-self." : false) },
       { label: "Le radis est en bas de sa cellule", test: c => /end/.test(cs(c, ".radis", "align-self")) },
-      { label: "La citrouille est à droite de sa cellule (`justify-self`)", test: c => /end/.test(cs(c, ".citrouille", "justify-self")) || (/end/.test(cs(c, ".citrouille", "align-self")) ? "align-self est vertical : pour aller à droite, c’est justify-self." : false) },
+      { label: "La citrouille est à droite de sa cellule (`justify-self`)", test: c => /end|right/.test(cs(c, ".citrouille", "justify-self")) || (/end/.test(cs(c, ".citrouille", "align-self")) ? "align-self est vertical : pour aller à droite, c’est justify-self." : false) },
       { label: "Les légumes sont sur leurs parcelles", test: boardOK }
     ],
     hints: ["Une règle par légume : `.tournesol`, `.radis`, `.citrouille`.", "Monter ou descendre, c’est vertical : `align-self`. Aller à droite, c’est horizontal : `justify-self`.", "`.tournesol { align-self: start; }`, `.radis { align-self: end; }`, `.citrouille { justify-self: end; }`"],
@@ -749,7 +749,7 @@ const GAME = {
       good: ["Place tes media queries **à la fin** du fichier et n’y réécris que ce qui change (ici, le plan de la grille, pas `display` ni `gap`).", "Encore mieux, pense **mobile d’abord** : écris d’abord la version téléphone (une colonne), puis `@media (min-width: 601px) { … }` pour les grands écrans."]
     },
     boardHTML: `<div class="potager">\n  <div class="tournesol"></div>\n  <div class="citrouille"></div>\n  <div class="radis"></div>\n  <div class="salade"></div>\n</div>`,
-    steps: ["Sur ordinateur, la fiche est déjà bien rangée : ne change pas la règle `.potager` du haut.", "Clique sur **Téléphone** au-dessus du potager : les parcelles s’empilent, mais pas tes légumes. (Ici, la media query regarde la largeur du potager, qui est une petite fenêtre.)", "À la fin du CSS, écris `@media (max-width: 600px) { … }` avec, à l’intérieur, une règle `.potager` : une seule colonne (`1fr`) et le dessin `\"titre\" \"photo\" \"infos\" \"conseils\"`."],
+    steps: ["Sur ordinateur, la fiche est déjà bien rangée : ne change pas la règle `.potager` du haut.", "Clique sur **Téléphone** au-dessus du potager : les parcelles s’empilent, mais pas tes légumes. (Le bouton **Téléphone** rétrécit le potager à la largeur d’un écran de téléphone, environ 390 px : c’est cette largeur que la media query regarde.)", "À la fin du CSS, écris `@media (max-width: 600px) { … }` avec, à l’intérieur, une règle `.potager` : une seule colonne (`1fr`) et le dessin `\"titre\" \"photo\" \"infos\" \"conseils\"`."],
     starter: `.potager {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 10px;\n  grid-template-areas:\n    "titre titre titre"\n    "photo photo infos"\n    "photo photo conseils";\n}\n\n.tournesol  { grid-area: titre; }\n.citrouille { grid-area: photo; }\n.radis      { grid-area: infos; }\n.salade     { grid-area: conseils; }\n\n/* Sur téléphone (600px de large ou moins) */\n\n`,
     goals: [
       { label: "Une media query pour les écrans de `600px` ou moins, après la règle `.potager`", test: c => { const R = c.rules || []; if (mqRules(c).length) { const iBase = R.findIndex(r => !r.media && r.sel && r.sel.trim() === ".potager"); const iMq = R.findIndex(r => r.media && /max-width\s*:\s*600px/i.test(r.media)); return iMq > iBase || "Ta media query est écrite avant la règle .potager : la règle normale, écrite après, gagne. Place la media query à la fin."; } return R.some(r => r.media) ? "Ta media query doit viser les petits écrans : @media (max-width: 600px)." : (/@media/.test(c.clean) ? "Ta media query est vide ou mal écrite : @media (max-width: 600px) { .potager { … } }" : false); } },
@@ -759,7 +759,7 @@ const GAME = {
     ],
     hints: ["Tout se passe **à la fin** du CSS, dans un bloc `@media (max-width: 600px) { }`.", "Dans ce bloc, une règle complète : `.potager { grid-template-columns: 1fr; grid-template-areas: … }`.", "Le dessin : `grid-template-areas: \"titre\" \"photo\" \"infos\" \"conseils\";` (un nom par rangée). N’oublie pas les deux accolades fermantes."],
     solution: `.potager {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 10px;\n  grid-template-areas:\n    "titre titre titre"\n    "photo photo infos"\n    "photo photo conseils";\n}\n\n.tournesol  { grid-area: titre; }\n.citrouille { grid-area: photo; }\n.radis      { grid-area: infos; }\n.salade     { grid-area: conseils; }\n\n/* Sur téléphone (600px de large ou moins) */\n@media (max-width: 600px) {\n  .potager {\n    grid-template-columns: 1fr;\n    grid-template-areas:\n      "titre"\n      "photo"\n      "infos"\n      "conseils";\n  }\n}`,
-    debrief: "Même HTML, même légumes, deux plans : un pour l’ordinateur, un pour le téléphone. La media query ne réécrit que ce qui change, et la cascade fait le reste. C’est exactement comme ça que les sites passent de plusieurs colonnes sur ordinateur à une seule colonne sur téléphone."
+    debrief: "Même HTML, mêmes légumes, deux plans : un pour l’ordinateur, un pour le téléphone. La media query ne réécrit que ce qui change, et la cascade fait le reste. C’est exactement comme ça que les sites passent de plusieurs colonnes sur ordinateur à une seule colonne sur téléphone."
   },
   {
     id: "finale", ch: 6, boss: true, title: "La fête du potager", notion: "mission finale : une page complète",
